@@ -2,7 +2,7 @@ version: '3.8'
 services:
   backend:
     build: ./server
-    container_name: doktor_server
+    container_name: doctor_server
     ports:
       - 9999:9999
     volumes:
@@ -13,25 +13,25 @@ services:
     depends_on:
       - database
   frontend:
-    build: ./doktor-appointment
-    container_name: doktor_frontend
+    build: ./doctor-appointment
+    container_name: doctor_frontend
     ports:
       - 80:5173
     volumes:
-      - ./doktor-appointment:/app
+      - ./doctor-appointment:/app
     networks:
       - frontend
   database:
     image: mongo:latest
-    container_name: doktor_db
+    container_name: doctor_db
     ports:
       - 27017:27017
     volumes:
-      - doktor_data:/data/db
+      - doctor_data:/data/db
     networks:
       - backend
 volumes:
-  doktor_data:
+  doctor_data:
 networks:
   backend:
   frontend:

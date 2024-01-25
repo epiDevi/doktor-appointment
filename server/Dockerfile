@@ -1,8 +1,7 @@
 From node:alpine
-WORKDIR /api
+WORKDIR /app
 COPY . .
 RUN npm i
 ENV PORT 9999
 EXPOSE ${PORT}
 CMD [ "node","--watch","server.js" ]
-
