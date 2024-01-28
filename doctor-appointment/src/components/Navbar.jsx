@@ -7,30 +7,52 @@ import { useContext } from "react";
 import UserContext from "../context/userContext";
 
 const Navbar = () => {
-  const { user, authorized } = useContext(UserContext);
-
-  console.log("user", user, authorized);
+  const { user, authorized, setAuthorized } = useContext(UserContext);
+  async function logout() {
+    try {
+      const response = await fetch(
+        import.meta.env.VITE_BACKEND_URL + "/api/auth/logout",
+        { credentials: "include" }
+      );
+      if (response.ok) {
+        setAuthorized(false);
+      }
+    } catch (error) {
+      console.error("Logout fehlgeschlagen", error);
+    }
+  }
+  //console.log("user", user, authorized);
   return (
     <nav className="flex justify-between items-center">
       <p className="text-xs font-['Museo-Sans-Cyrl'] tracking-wider	 ">
         Welcome {user ? user.email : ""}
       </p>
       <div className="flex justify-between items-center">
-        <Link className="mx-2" to="/home">
+        <Link className="mx-2" to="/">
           <IoHomeOutline />
         </Link>
         {authorized ? (
           user?.role === "doctor" ? (
-            <Link to="/doctorprofile">
-              <CiUser />
-            </Link>
+            <>
+              <button onClick={logout}>
+                <CiLogout />
+              </button>
+              <Link to="/doctorprofile">
+                <CiUser />
+              </Link>
+            </>
           ) : (
-            <Link to="/patientprofile">
-              <CiUser />
-            </Link>
+            <>
+              <button onClick={logout}>
+                <CiLogout />
+              </button>
+              <Link to="/patientprofile">
+                <CiUser />
+              </Link>
+            </>
           )
         ) : (
-          <Link to="/">{authorized ? <CiLogout /> : <IoIosLogIn />}</Link>
+          <Link to="/login">{authorized ? <CiLogout /> : <IoIosLogIn />}</Link>
         )}
       </div>
     </nav>

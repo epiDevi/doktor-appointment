@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, Navigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { useEffect, useState } from "react";
 import UserContext from "../context/userContext";
@@ -41,8 +41,12 @@ const Root = () => {
     }
     getUser();
   }, []);
+  if (!authorized && !loading) {
+    return <Navigate to={"/login"} />;
+  }
+
   return (
-    <UserContext.Provider value={{ user, setUser, authorized }}>
+    <UserContext.Provider value={{ user, setUser, authorized, setAuthorized }}>
       <div className="w-10/12 mt-5">
         <Navbar />
 

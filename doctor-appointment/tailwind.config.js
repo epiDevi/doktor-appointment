@@ -7,6 +7,10 @@ export default {
         container: "390px",
       },
     },
+    colors: {
+      darkblue: "#222B45",
+      Steelblue: "#6B779A",
+    },
   },
   plugins: [require("daisyui")],
   daisyui: {

@@ -32,12 +32,13 @@ export async function register(req, res) {
 }
 
 export async function verifyEmail(req, res) {
-  console.log("in verify******");
+  console.log("in verify*");
   const email = req.body.email;
   const sixDigitCode = req.body.sixDigitCode;
   const user = await User.findOne({ email });
+  console.log("user", req.body);
   if (!user)
-    res.sattus(404).send({ success: false, error: "Invalid verification" });
+    res.sattus(403).send({ success: false, error: "Invalid verification" });
   const validSixDigitCode = sixDigitCode === user.sixDigitCode;
   if (!validSixDigitCode)
     res.sattus(404).send({ success: false, error: "Invalid verification" });
@@ -66,6 +67,11 @@ export async function login(req, res) {
     })
     .json({ email: user.email, role: user.role });
 }
+
+export function logout(req, res) {
+  res.clearCookie("doctorAppointmentAuth", { path: "/" }).end();
+}
+
 export function check(req, res) {
   res.json({ user: req.payload.user, role: req.payload.role });
 }

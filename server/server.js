@@ -6,6 +6,8 @@ import cookieParser from "cookie-parser";
 import { router as authRouter } from "./src/auth/auth.router.js";
 import { router as profileRouter } from "./src/profile/userProfile.router.js";
 import { router as userRouter } from "./src/user/user.router.js";
+import { getAllDoctors } from "./src/doctor/doctor.controller.js";
+import { router as doctorRouter } from "./src/doctor/doctor.router.js";
 try {
   await mongoose.connect(process.env.MONGODB);
   console.log("connecting to Mongodb");
@@ -26,5 +28,6 @@ app.use(cookieParser());
 app.use("/api/auth", authRouter);
 app.use("/api/profile", profileRouter);
 app.use("/api/user", userRouter);
+app.use("/api/alldoctors", doctorRouter);
 
 app.listen(process.env.PORT, () => console.log("server leuft"));

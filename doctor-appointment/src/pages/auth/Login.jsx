@@ -16,7 +16,7 @@ const Login = () => {
     );
     if (response.ok) {
       //const data = await response.json();
-      navigate("/home");
+      navigate("/");
     }
   }
 

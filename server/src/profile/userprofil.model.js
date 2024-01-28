@@ -21,11 +21,14 @@ const userprofilSchema = new mongoose.Schema({
     type: String,
     requird: true,
   },
-  // workingtime: {
-  //   start: Date,
-  //   end: Date,
-  // },
-  // visitingtime: [],
+  cloudinaryId: { type: String },
+  experience: {
+    type: Number,
+  },
+  rating: {
+    type: Number,
+  },
+  workingTime: [{ day: String, start: String, end: String }],
 });
 
 export const UserProfil = mongoose.model("userprofile", userprofilSchema);
